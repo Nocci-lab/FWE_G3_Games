@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FWE G3 Games</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+      background:
+        radial-gradient(circle at top left, #dff4ff 0%, transparent 35%),
+        radial-gradient(circle at top right, #e8e0ff 0%, transparent 30%),
+        linear-gradient(180deg, #f7fbff 0%, #eef5ff 55%, #f9fbff 100%);
+      color: #2a3440;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 50px;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 28px;
+      box-shadow: 0 18px 40px rgba(60, 90, 140, 0.12);
+      padding: 28px 22px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.1;
+      color: #24364d;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #5d6f83;
+    }
+
+    .top-info {
+      margin-top: 18px;
+      display: inline-block;
+      background: linear-gradient(135deg, #ffffff, #f4f8ff);
+      border: 1px solid #dce9ff;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 14px;
+      color: #506174;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 10px 0 16px;
+      color: #31445c;
+      padding-left: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(213, 228, 255, 0.95);
+      border-radius: 22px;
+      padding: 20px 16px 18px;
+      box-shadow: 0 10px 24px rgba(70, 95, 140, 0.09);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 7px;
+      background: linear-gradient(90deg, #7fc8ff, #a78bfa, #7ee7d9);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 30px rgba(70, 95, 140, 0.14);
+      border-color: #bfd8ff;
+    }
+
+    .day {
+      font-size: 27px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #23364d;
+    }
+
+    .label {
+      font-size: 14px;
+      color: #68809a;
+      margin-bottom: 10px;
+    }
+
+    .mini {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #517099;
+      background: #eef5ff;
+      border: 1px solid #d7e7ff;
+      border-radius: 999px;
+      padding: 5px 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #728396;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 20px, 1100px);
+        padding-top: 18px;
+      }
+
+      .hero {
+        border-radius: 22px;
+        padding: 22px 14px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .card {
+        padding: 18px 12px 16px;
+        border-radius: 18px;
+      }
+
+      .day {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1>FWE G3 Games</h1>
+      <div class="subtitle">Grade 3 Game Index</div>
+      <div class="top-info" id="topInfo">Loading...</div>
+    </header>
+
+    <div class="section-title">Day List</div>
+    <main class="grid" id="dayGrid"></main>
+
+    <div class="footer">
+      Fun With English
+    </div>
+  </div>
+
+  <script>
+    const days = [
+      { day: 1, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day1.html" },
+      { day: 2, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day2.html" },
+      { day: 3, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day3.html" },
+      { day: 4, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day4.html" },
+      { day: 5, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day5.html" },
+      { day: 6, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day6.html" },
+      { day: 7, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day7.html" },
+      { day: 8, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day8.html" },
+      { day: 9, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day9.html" },
+      { day: 10, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day10.html" },
+      { day: 11, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day11.html" },
+      { day: 12, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day12.html" },
+      { day: 13, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day13.html" },
+      { day: 14, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day14.html" },
+      { day: 15, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day15.html" },
+      { day: 16, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day16.html" },
+      { day: 17, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day17.html" },
+      { day: 18, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day18.html" },
+      { day: 19, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day19.html" },
+      { day: 20, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day20.html" },
+      { day: 21, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day21.html" },
+      { day: 22, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day22.html" },
+      { day: 23, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day23.html" },
+      { day: 24, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day24.html" },
+      { day: 25, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day25.html" },
+      { day: 26, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day26.html" },
+      { day: 27, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day27.html" },
+      { day: 28, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day28.html" },
+      { day: 29, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day29.html" },
+      { day: 30, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day30.html" },
+      { day: 31, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day31.html" },
+      { day: 32, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day32.html" },
+      { day: 33, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day33.html" },
+      { day: 34, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day34.html" },
+      { day: 35, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day35.html" },
+      { day: 36, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day36.html" },
+      { day: 37, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day37.html" },
+      { day: 38, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day38.html" },
+      { day: 39, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day39.html" },
+      { day: 40, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day40.html" },
+      { day: 41, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day41.html" },
+      { day: 42, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day42.html" },
+      { day: 43, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day43.html" },
+      { day: 44, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day44.html" },
+      { day: 45, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day45.html" },
+      { day: 46, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day46.html" },
+      { day: 47, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day47.html" },
+      { day: 48, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day48.html" },
+      { day: 49, file: "https://nocci-lab.github.io/FWE_G3_Games/G3_Day49.html" }
+    ];
+
+    const dayGrid = document.getElementById("dayGrid");
+    const topInfo = document.getElementById("topInfo");
+
+    const sortedDays = [...days].sort((a, b) => a.day - b.day);
+
+    topInfo.textContent =
+      `Day ${sortedDays[0].day} ～ Day ${sortedDays[sortedDays.length - 1].day} ｜ 全 ${sortedDays.length} 個`;
+
+    sortedDays.forEach(item => {
+      const link = document.createElement("a");
+      link.className = "card";
+      link.href = item.file;
+      link.innerHTML = `
+        <div class="day">Day ${item.day}</div>
+        <div class="label">${item.label || "Vocabulary Game"}</div>
+        <span class="mini">Open</span>
+      `;
+      dayGrid.appendChild(link);
+    });
+  </script>
+</body>
+</html>
